@@ -7,4 +7,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="NodeDateTime" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">45dp</item>
+    </style>
+
+    <style name="NodeTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:padding">@dimen/text_padding</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_height">45dp</item>
+    </style>
+
+    <dimen name="text_padding">6dp</dimen>
+    <dimen name="text_margin">0dp</dimen>
 </resources>
