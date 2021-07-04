@@ -1,0 +1,56 @@
+package com.example.mynotes.model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ListNote {
+    private static ListNote instance;
+
+    private static Integer uniqIdNote = -1;
+    private HashMap<Integer, Note> mListNote;
+
+    public static ListNote getInstance(){ // #3
+        if(instance == null){
+            instance = new ListNote();	//
+        }
+        return instance;
+    }
+
+    private ListNote() {
+        this.mListNote = new HashMap<>();
+    }
+
+    public Integer addNote(String theme, String description) {
+        uniqIdNote++;
+        mListNote.put(uniqIdNote, new Note(uniqIdNote, theme, description));
+        return uniqIdNote;
+    }
+
+    public int size() {
+        return mListNote.size();
+    }
+
+    public Note getNote(Integer id) {
+        return mListNote.get(id);
+    }
+
+    public void editNote(Integer id, String theme, String description) {
+        if (this.mListNote.get(id) == null) {
+            this.addNote(theme, description);
+        } else {
+            this.mListNote.get(id).editNote(theme, description);
+        }
+    }
+
+    public HashMap<Integer, Note> getmListNote() {
+        return mListNote;
+    }
+
+    public List<Note> toListNode() {
+        List<Note> temp = new ArrayList<>();
+        for (Map.Entry<Integer, Note> entry : mListNote.entrySet()) temp.add(entry.getValue());
+        return temp;
+    }
+}
