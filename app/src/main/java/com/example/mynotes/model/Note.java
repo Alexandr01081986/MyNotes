@@ -2,9 +2,6 @@ package com.example.mynotes.model;
 
 import java.util.Date;
 
-/**
- * Класс заметка
- */
 public class Note {
 
     private Integer mId = 0;

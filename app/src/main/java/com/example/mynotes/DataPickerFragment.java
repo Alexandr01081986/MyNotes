@@ -16,18 +16,10 @@ import com.example.mynotes.model.Note;
 
 import static com.example.mynotes.service.Common.formatStringToDate;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DataPickerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DataPickerFragment extends Fragment {
-
-
 
     public static final String _ID = "id";
     public static final String FILED_NAME = "filed_name";
-
 
     private Integer id;
     private String fieldName;
@@ -40,15 +32,6 @@ public class DataPickerFragment extends Fragment {
     public DataPickerFragment() {
 
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DataPickerFragment.
-     */
 
     public static DataPickerFragment newInstance(Integer param1, String param2) {
         DataPickerFragment fragment = new DataPickerFragment();

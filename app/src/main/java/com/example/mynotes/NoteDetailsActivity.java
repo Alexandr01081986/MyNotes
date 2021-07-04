@@ -1,12 +1,11 @@
 package com.example.mynotes;
 
 import android.content.res.Configuration;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class NoteDetailsActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

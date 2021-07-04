@@ -13,25 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotes.model.ListNote;
 
-/**
- * A fragment representing a list of Items.
- */
 public class MyNotesFragment extends Fragment {
-
 
     private static final String ARG_COLUMN_COUNT = "column-count";
 
     private int mColumnCount = 1;
+    private NotesRecyclerViewAdapter resAdapter;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public MyNotesFragment() {
     }
 
-
-    @SuppressWarnings("unused")
     public static MyNotesFragment newInstance(int columnCount) {
         MyNotesFragment fragment = new MyNotesFragment();
         Bundle args = new Bundle();
@@ -50,6 +41,11 @@ public class MyNotesFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.node_list, container, false);
@@ -64,7 +60,8 @@ public class MyNotesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new NotesRecyclerViewAdapter(notes.toListNode(), this));
+            resAdapter = new NotesRecyclerViewAdapter(notes.toListNode(), this);
+            recyclerView.setAdapter(resAdapter);
         }
         return view;
     }

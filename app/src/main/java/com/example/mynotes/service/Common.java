@@ -18,6 +18,7 @@ public class Common {
     }
 
     public static Date formatStringToDate(int year,int month,int day) {
-        return new Date(year, month, day);
+        Date date = new Date(year, month, day);
+        return date;
     }
 }

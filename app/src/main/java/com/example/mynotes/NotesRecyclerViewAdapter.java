@@ -1,16 +1,23 @@
 package com.example.mynotes;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.mynotes.model.ListNote;
 import com.example.mynotes.model.Note;
 
 import java.util.List;
@@ -23,6 +30,7 @@ public class NotesRecyclerViewAdapter extends RecyclerView.Adapter<NotesRecycler
     private ViewGroup parent;
     private Fragment parentFragment;
     private boolean isLandscape;
+    private int currentIdNote = -1;
 
     public NotesRecyclerViewAdapter(List<Note> items, Fragment parentFragment) {
         mValues = items;
@@ -50,11 +58,11 @@ public class NotesRecyclerViewAdapter extends RecyclerView.Adapter<NotesRecycler
 
         final Integer idNote = mValues.get(position).getId();
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showNoteDetails(idNote);
-            }
+        holder.mView.setOnClickListener(v -> showNoteDetails(idNote));
+
+        holder.mView.setOnLongClickListener(v -> {
+            openPopupMenu(v, idNote);
+            return true;
         });
     }
 
@@ -88,7 +96,7 @@ public class NotesRecyclerViewAdapter extends RecyclerView.Adapter<NotesRecycler
         FragmentManager fragmentManager = parentFragment.requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nodeDetailsContainer, detail); // замена фрагмента
+        fragmentTransaction.replace(R.id.nodeDetailsContainer, detail);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
     }
@@ -118,4 +126,32 @@ public class NotesRecyclerViewAdapter extends RecyclerView.Adapter<NotesRecycler
             return super.toString() + " '" + mTheme.getText() + "'";
         }
     }
+
+    private void openPopupMenu(View view, Integer idNote) {
+        currentIdNote = idNote;
+        TextView text = view.findViewById(R.id.theme);
+
+        Activity activity = parentFragment.getActivity();
+        PopupMenu popupMenu = new PopupMenu(activity, view);
+        activity.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+        Menu menu = popupMenu.getMenu();
+        menu.add(0, 1, 10, R.string.add);
+        menu.add(0, 2, 12, R.string.edit);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int id = item.getItemId();
+            switch (id) {
+                case 1:
+                    Toast.makeText(parentFragment.getContext(), "Добавить", Toast.LENGTH_SHORT).show();
+                    showNoteDetails(ListNote.getInstance().addNote("",""));
+                    return true;
+                case 2:
+                    Toast.makeText(parentFragment.getContext(), "Изменить", Toast.LENGTH_SHORT).show();
+                    showNoteDetails(currentIdNote);
+                    return true;
+            }
+            return true;
+        });
+        popupMenu.show();
+    }
+
 }

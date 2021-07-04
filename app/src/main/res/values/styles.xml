@@ -24,7 +24,12 @@
         <item name="android:textSize">12sp</item>
         <item name="android:layout_height">45dp</item>
     </style>
-
-    <dimen name="text_padding">6dp</dimen>
-    <dimen name="text_margin">0dp</dimen>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light" />
 </resources>
